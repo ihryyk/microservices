@@ -1,6 +1,6 @@
-package com.departmentservice.repository;
+package com.departmentService.repository;
 
-import com.departmentservice.entity.Department;
+import com.departmentService.entity.Department;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,6 +1,6 @@
-package com.departmentservice.service;
+package com.departmentService.service;
 
-import com.departmentservice.dto.DepartmentDto;
+import com.departmentService.dto.DepartmentDto;
 
 public interface DepartmentService {
     public DepartmentDto save(DepartmentDto departmentDto);

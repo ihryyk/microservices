@@ -1,4 +1,4 @@
-package com.departmentservice.dto;
+package com.departmentService.dto;
 
 import lombok.*;
 

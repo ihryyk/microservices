@@ -1,4 +1,4 @@
-package com.departmentservice.entity;
+package com.employeeService.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,12 +12,13 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "departments")
-public class Department {
+@Table(name = "employees")
+public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String departmentName;
-    private String departmentDescription;
-    private String departmentCode;
+    private String firstName;
+    private String lastName;
+    @Column(nullable = false, unique = true)
+    private String email;
 }

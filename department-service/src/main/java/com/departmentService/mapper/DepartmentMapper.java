@@ -1,7 +1,7 @@
-package com.departmentservice.mapper;
+package com.departmentService.mapper;
 
-import com.departmentservice.dto.DepartmentDto;
-import com.departmentservice.entity.Department;
+import com.departmentService.dto.DepartmentDto;
+import com.departmentService.entity.Department;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
