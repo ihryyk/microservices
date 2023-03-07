@@ -2,7 +2,7 @@ package com.departmentService.service.impl;
 
 import com.departmentService.dto.DepartmentDto;
 import com.departmentService.entity.Department;
-import com.departmentService.exception.EntityNotFindException;
+import com.departmentService.exception.ResourceNotFoundException;
 import com.departmentService.mapper.DepartmentMapper;
 import com.departmentService.repository.DepartmentRepository;
 import com.departmentService.service.DepartmentService;
@@ -24,8 +24,8 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public DepartmentDto findByDepartmentCode(String departmentCode) {
-        Department department = Optional.of(departmentRepository.findDepartmentByDepartmentCode(departmentCode)).orElseThrow(() -> new EntityNotFindException(String.format("department with code = %s not found", departmentCode)));
+    public DepartmentDto findByDepartmentCode(String departmentCode) throws ResourceNotFoundException {
+        Department department = departmentRepository.findDepartmentByDepartmentCode(departmentCode).orElseThrow(() -> new ResourceNotFoundException("Department","department code", departmentCode));
         return DepartmentMapper.INSTANCE.mapToDto(department);
 
 

@@ -2,7 +2,7 @@ package com.employeeService.service.impl;
 
 import com.employeeService.dto.EmployeeDto;
 import com.employeeService.entity.Employee;
-import com.employeeService.exception.EntityNotFindException;
+import com.employeeService.exception.ResourceNotFoundException;
 import com.employeeService.mapper.EmployeeMapper;
 import com.employeeService.repository.EmployeeRepository;
 import com.employeeService.service.EmployeeService;
@@ -22,7 +22,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeDto findById(Long id) {
-        Employee employee = employeeRepository.findById(id).orElseThrow(()-> new EntityNotFindException(String.format("employee with id = %s not found", id)));
+        Employee employee = employeeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Employee","employee id", String.valueOf(id)));
         return EmployeeMapper.INSTANCE.mapToDto(employee);
     }
 }
