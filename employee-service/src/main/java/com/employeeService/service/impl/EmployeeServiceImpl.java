@@ -1,5 +1,7 @@
 package com.employeeService.service.impl;
 
+import com.employeeService.dto.ApiResponseDto;
+import com.employeeService.dto.DepartmentDto;
 import com.employeeService.dto.EmployeeDto;
 import com.employeeService.entity.Employee;
 import com.employeeService.exception.ResourceNotFoundException;
@@ -8,11 +10,13 @@ import com.employeeService.repository.EmployeeRepository;
 import com.employeeService.service.EmployeeService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
 @AllArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeRepository employeeRepository;
+    private WebClient webClient;
 
     @Override
     public EmployeeDto save(EmployeeDto employeeDto) {
@@ -21,8 +25,15 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public EmployeeDto findById(Long id) {
-        Employee employee = employeeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Employee","employee id", String.valueOf(id)));
-        return EmployeeMapper.INSTANCE.mapToDto(employee);
+    public ApiResponseDto findById(Long id) {
+        Employee employee = employeeRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Employee", "employee id", String.valueOf(id)));
+        EmployeeDto employeeDto = EmployeeMapper.INSTANCE.mapToDto(employee);
+        DepartmentDto departmentDto = webClient
+                .get().uri("http://localhost:8082/api/departments/" + employee.getDepartmentCode())
+                .retrieve()
+                .bodyToMono(DepartmentDto.class)
+                .block();
+        return new ApiResponseDto(employeeDto, departmentDto);
     }
 }

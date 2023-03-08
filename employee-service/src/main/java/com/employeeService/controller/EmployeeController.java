@@ -1,5 +1,6 @@
 package com.employeeService.controller;
 
+import com.employeeService.dto.ApiResponseDto;
 import com.employeeService.dto.EmployeeDto;
 import com.employeeService.service.EmployeeService;
 import lombok.AllArgsConstructor;
@@ -20,7 +21,7 @@ public class EmployeeController {
 
     @GetMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
-    EmployeeDto findById(@PathVariable("id") Long id){
+    ApiResponseDto findById(@PathVariable("id") Long id){
         return employeeService.findById(id);
     }
 }
